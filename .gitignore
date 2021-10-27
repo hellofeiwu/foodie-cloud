@@ -1,0 +1,14 @@
+.idea
+build/
+out/
+
+**/.build/**
+**/.idea/**
+**/build/**
+**/out/**
+
+**.iml
+*.class
+**/target/**
+
+.DS_Store
