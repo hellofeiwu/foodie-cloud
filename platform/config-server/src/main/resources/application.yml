@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        overrides:
+          test: mytest
+        git:
+          uri: https://github.com/hellofeiwu/config-repo.git
+          force-pull: true
+          default-label: main
+#          这里不写上这个default-label的话，其默认的值是master，但是现在的github不一定是master
+          search-paths: '{application}'
+
+server:
+  port: 20003
+
+############################################################
+#
+# Eureka注册中心
+#
+############################################################
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:20000/eureka/

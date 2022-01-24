@@ -3,6 +3,7 @@ package com.imooc.user.controller;
 import com.imooc.controller.BaseController;
 import com.imooc.pojo.IMOOCJSONResult;
 import com.imooc.pojo.ShopcartBO;
+import com.imooc.user.UserApplicationProperties;
 import com.imooc.user.pojo.Users;
 
 import com.imooc.user.pojo.bo.UserBO;
@@ -36,6 +37,9 @@ public class PassportController extends BaseController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserApplicationProperties userApplicationProperties;
+
     @ApiOperation(value = "用户名是否存在", notes = "用户名是否存在", httpMethod = "GET")
     @GetMapping("/usernameIsExist")
     public IMOOCJSONResult usernameIsExist(@RequestParam String username) {
@@ -61,6 +65,10 @@ public class PassportController extends BaseController {
             HttpServletRequest request,
             HttpServletResponse response
     ) {
+        if (userApplicationProperties.isDisableRegistration()) {
+            return IMOOCJSONResult.errorMsg("注册功能已关闭");
+        }
+
         String username = userBO.getUsername();
         String password = userBO.getPassword();
         String confirmPwd = userBO.getConfirmPassword();
